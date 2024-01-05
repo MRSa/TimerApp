@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TimerApp</string>
+    <string name="permission_not_granted">必要な権限が有効ではありません。有効にしてください。</string>
+    <string name="channel_name">JoggingTimer</string>
+    <string name="channel_description">Ongoing Activity</string>
+
+    <string name="hello_world">世界より&#8230;\nこんにちは、 %1$s!</string>
+</resources>
