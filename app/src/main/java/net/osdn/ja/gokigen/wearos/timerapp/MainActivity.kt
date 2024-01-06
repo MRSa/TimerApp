@@ -1,4 +1,4 @@
-package net.osdn.ja.gokigen.wearos.timerapp.presentation
+package net.osdn.ja.gokigen.wearos.timerapp
 
 import android.Manifest
 import android.app.NotificationChannel
@@ -12,12 +12,8 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.wear.ongoing.OngoingActivity
-import androidx.wear.ongoing.Status
-import net.osdn.ja.gokigen.wearos.timerapp.R
 import net.osdn.ja.gokigen.wearos.timerapp.presentation.ui.ViewRoot
 import java.io.File
 
@@ -58,7 +54,7 @@ class MainActivity : ComponentActivity()
             else
             {
                 setupEnvironments()
-                //initializeOnGoingActivityApi()
+                createNotificationChannel()
             }
             rootComponent = ViewRoot(applicationContext)
             setContent {
@@ -106,15 +102,22 @@ class MainActivity : ComponentActivity()
 
     private fun createNotificationChannel()
     {
-        val name = getString(R.string.channel_name)
-        val descriptionText = getString(R.string.channel_description)
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-            description = descriptionText
+        try
+        {
+            val name = getString(R.string.channel_name)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
-        val notificationManager: NotificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
     }
 
     private fun outputDebugLog(data: String)
@@ -132,8 +135,8 @@ class MainActivity : ComponentActivity()
         private val TAG = MainActivity::class.java.simpleName
         private const val isDebugLog = true
 
-        private const val CHANNEL_ID = "GOKIGEN" // ???
-        private const val MAIN_TEXT = "JoggingTimer"
+        const val CHANNEL_ID = "net.osdn.ja.gokigen.joggingtimer"
+        //private const val MAIN_TEXT = "JoggingTimer"
 
         private const val CACHE_DIR : String = "/caches/"
         private val REQUIRED_PERMISSIONS =

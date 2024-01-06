@@ -3,6 +3,7 @@
     <string name="permission_not_granted">Permissions not granted by the user.</string>
     <string name="channel_name">JoggingTimer</string>
     <string name="channel_description">Ongoing Activity</string>
+    <string name="notification_description">Timer active</string>
 
     <string name="hello_world">From the Wear OS world,\nHello, %1$s!</string>
 </resources>

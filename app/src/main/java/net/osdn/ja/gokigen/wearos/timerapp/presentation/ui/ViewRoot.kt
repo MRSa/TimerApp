@@ -3,6 +3,7 @@ package net.osdn.ja.gokigen.wearos.timerapp.presentation.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -18,7 +19,7 @@ class ViewRoot @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     override fun Content()
     {
         val navController = rememberSwipeDismissableNavController()
-        val counterModel = remember { CounterModel() }
+        val counterModel = remember { CounterModel(context) }
 
         TimerAppTheme {
             Surface(color = MaterialTheme.colors.background) {
