@@ -12,8 +12,11 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import net.osdn.ja.gokigen.wearos.timerapp.counter.CounterModel
 import net.osdn.ja.gokigen.wearos.timerapp.presentation.ui.ViewRoot
 import java.io.File
 
@@ -64,6 +67,30 @@ class MainActivity : ComponentActivity()
         catch (ex: Exception)
         {
             ex.printStackTrace()
+        }
+    }
+
+    override fun onDestroy()
+    {
+        super.onDestroy()
+        Log.v(TAG, "onDestroy() : ")
+
+        try
+        {
+            val notificationManager = NotificationManagerCompat.from(this)
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.v(TAG, " Permission denied to notify (Cancel).")
+                return
+            }
+            notificationManager.cancel(R.string.app_name)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
         }
     }
 

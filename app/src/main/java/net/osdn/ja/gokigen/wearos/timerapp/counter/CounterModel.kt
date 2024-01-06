@@ -5,12 +5,13 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.res.stringResource
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -38,6 +39,8 @@ class CounterModel(private val context: Context) : ICounterStatus, INotifyLaunch
     var stopTime = 0L
         private set
 
+    private val vibrator : Vibrator = context.getSystemService(Vibrator::class.java)
+
     private fun timerCounter()
     {
         try
@@ -49,7 +52,7 @@ class CounterModel(private val context: Context) : ICounterStatus, INotifyLaunch
                     counter.longValue = System.currentTimeMillis()
                     try
                     {
-                        Thread.sleep(100)
+                        Thread.sleep(TIMER_DURATION)
                     }
                     catch (e: Exception)
                     {
@@ -71,9 +74,11 @@ class CounterModel(private val context: Context) : ICounterStatus, INotifyLaunch
         {
             buttonStatus.value = CounterStatus.START
             startTime = System.currentTimeMillis()
+            lastLapTime = startTime
             (lapCount.intValue)++
             counter.longValue = startTime
             timerCounter()
+            vibration(true)
             launchNotify(R.drawable.baseline_directions_run_24,
                 context.getString(R.string.app_name),
                 context.getString(R.string.notification_description),
@@ -92,7 +97,7 @@ class CounterModel(private val context: Context) : ICounterStatus, INotifyLaunch
         {
             buttonStatus.value = CounterStatus.FINISHED
             stopTime = System.currentTimeMillis()
-
+            vibration(true)
             launchNotify(R.drawable.baseline_directions_run_24,
                 context.getString(R.string.app_name),
                 context.getString(R.string.notification_description),
@@ -112,6 +117,7 @@ class CounterModel(private val context: Context) : ICounterStatus, INotifyLaunch
             buttonStatus.value = CounterStatus.START
             (lapCount.intValue)++
             lastLapTime = System.currentTimeMillis()
+            vibration(false)
         }
         catch (e: Exception)
         {
@@ -128,6 +134,7 @@ class CounterModel(private val context: Context) : ICounterStatus, INotifyLaunch
             startTime = 0
             stopTime = 0
             lastLapTime = 0
+            vibration(true)
         }
         catch (e: Exception)
         {
@@ -220,9 +227,33 @@ class CounterModel(private val context: Context) : ICounterStatus, INotifyLaunch
         return (context.getString(R.string.notification_description))
     }
 
+    private fun vibration(isLong: Boolean)
+    {
+        val ms = if (isLong) { 600L } else { 300L }
+        try
+        {
+            val thread = Thread {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                {
+                    vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
+                }
+                else
+                {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(ms)
+                }
+            }
+            thread.start()
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
 
     companion object
     {
         private val TAG = CounterModel::class.java.simpleName
+        private const val TIMER_DURATION = 100L //250L
     }
 }
