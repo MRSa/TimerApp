@@ -1,14 +1,26 @@
 package net.osdn.ja.gokigen.wearos.timerapp.presentation.ui
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.ButtonDefaults
 import net.osdn.ja.gokigen.wearos.timerapp.R
 import net.osdn.ja.gokigen.wearos.timerapp.counter.ICounterStatus
 
@@ -23,27 +35,45 @@ fun BtnStop(navController: NavHostController, counterStatus: ICounterStatus)
     Log.v("BTN", "btnStop")
 
     // ストップ状態時のボタン
-    Row(
+    Row(modifier = Modifier
+        .padding(horizontal = 10.dp)
+        .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         ////////////////////  記録一覧画面へ遷移  ////////////////////
-        IconButton(
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .width(48.dp)
+                .padding(2.dp)
+                .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
             onClick = { navController.navigate("RecordListScreen") },
             enabled = true,
         ) {
             Icon(
+                modifier = Modifier.background(Color.Black),
                 painter = painterResource(id = R.drawable.baseline_list_24),
                 contentDescription = "List",
-                tint = Color.LightGray
+                tint = Color.LightGray,
             )
         }
 
         ////////////////////  カウンター表示の切り替え  ////////////////////
-        IconButton(
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .width(48.dp)
+                .padding(2.dp)
+                .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
             onClick = { counterStatus.toggleShowCounter() },
             enabled = true
         ) {
             Icon(
+                modifier = Modifier.background(Color.Black),
                 painter = painterResource(id = R.drawable.sharp_swap_vert_24),
                 contentDescription = "ChangeScreen",
                 tint = Color.LightGray
@@ -51,11 +81,19 @@ fun BtnStop(navController: NavHostController, counterStatus: ICounterStatus)
         }
 
         ////////////////////  カウンターのスタート  ////////////////////
-        IconButton(
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .width(48.dp)
+                .padding(2.dp)
+                .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
             onClick = { counterStatus.start() },
             enabled = true
         ) {
             Icon(
+                modifier = Modifier.background(Color.Black),
                 painter = painterResource(id = R.drawable.baseline_play_arrow_24),
                 contentDescription = "Start",
                 tint = Color.LightGray
@@ -64,17 +102,27 @@ fun BtnStop(navController: NavHostController, counterStatus: ICounterStatus)
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BtnStart(counterStatus: ICounterStatus)
 {
     Log.v("BTN", "btnStart")
 
     // スタート状態時のボタン
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween
+    Row(modifier = Modifier
+        .padding(horizontal = 10.dp)
+        .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         ////////////////////  カウンターのストップ  ////////////////////
-        IconButton(
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .width(48.dp)
+                .padding(2.dp)
+                .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
             onClick = { counterStatus.stop() },
             enabled = true
         ) {
@@ -86,8 +134,22 @@ fun BtnStart(counterStatus: ICounterStatus)
         }
 
         ////////////////////  カウンター表示の切り替え  ////////////////////
-        IconButton(
-            onClick = { counterStatus.toggleShowCounter() },
+        Button(
+           modifier = Modifier
+               .combinedClickable(enabled = true,
+                   onLongClick = { counterStatus.toggleShowCounter() },
+                   onClick = {
+                       Log.v("LOG", "onClick")
+                   }
+               )
+               .height(48.dp)
+               .width(48.dp)
+               .padding(2.dp)
+               .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
+            onClick = { },
+            //onClick = { counterStatus.toggleShowCounter() },
             enabled = true
         ) {
             Icon(
@@ -98,7 +160,14 @@ fun BtnStart(counterStatus: ICounterStatus)
         }
 
         ////////////////////  タイムスタンプ記録  ////////////////////
-        IconButton(
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .width(48.dp)
+                .padding(2.dp)
+                .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
             onClick = { counterStatus.timeStamp() },
             enabled = true
         ) {
@@ -117,11 +186,20 @@ fun BtnFinished(navController: NavHostController, counterStatus: ICounterStatus)
     Log.v("BTN", "btnFinish")
 
     // カウントストップ時のボタン
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween
+    Row(modifier = Modifier
+        .padding(horizontal = 10.dp)
+        .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         ////////////////////  記録一覧画面へ遷移  ////////////////////
-        IconButton(
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .width(48.dp)
+                .padding(2.dp)
+                .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
             onClick = { navController.navigate("RecordListScreen") },
             enabled = true,
         ) {
@@ -133,7 +211,14 @@ fun BtnFinished(navController: NavHostController, counterStatus: ICounterStatus)
         }
 
         ////////////////////  カウンターのリセット  ////////////////////
-        IconButton(
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .width(48.dp)
+                .padding(2.dp)
+                .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
             onClick = { counterStatus.reset() },
             enabled = true
         ) {
@@ -145,7 +230,14 @@ fun BtnFinished(navController: NavHostController, counterStatus: ICounterStatus)
         }
 
         ////////////////////  カウンターのスタート  ////////////////////
-        IconButton(
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .width(48.dp)
+                .padding(2.dp)
+                .background(color = Color.Black),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
             onClick = { counterStatus.start() },
             enabled = true
         ) {
