@@ -4,6 +4,6 @@
     <string name="channel_name">JoggingTimer</string>
     <string name="channel_description">Ongoing Activity</string>
     <string name="notification_description">計測中</string>
-
+    <string name="long_press_to_stop">長押しで終了</string>
     <string name="hello_world">世界より&#8230;\nこんにちは、 %1$s!</string>
 </resources>

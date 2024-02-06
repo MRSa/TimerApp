@@ -4,7 +4,7 @@ import androidx.compose.foundation.ScrollState
 import androidx.wear.compose.material.PositionIndicatorState
 import androidx.wear.compose.material.PositionIndicatorVisibility
 
-class MyPositionIndicatorState() : PositionIndicatorState
+class MyPositionIndicatorState : PositionIndicatorState
 {
     var scrollState = ScrollState(0)
 

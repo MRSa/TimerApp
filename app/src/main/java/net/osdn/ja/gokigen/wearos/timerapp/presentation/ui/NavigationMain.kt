@@ -9,7 +9,6 @@ import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import net.osdn.ja.gokigen.wearos.timerapp.counter.CounterModel
 import net.osdn.ja.gokigen.wearos.timerapp.presentation.theme.TimerAppTheme
-import net.osdn.ja.gokigen.wearos.timerapp.presentation.ui.MainScreen
 
 @Composable
 fun NavigationMain(context: Context, navController: NavHostController, counterModel: CounterModel)
@@ -24,7 +23,7 @@ fun NavigationMain(context: Context, navController: NavHostController, counterMo
                 route = "MainScreen"
             ) {
                 // メイン画面
-                MainScreen(navController = navController, counterManager = counterModel)
+                MainScreen(context = context, navController = navController, counterManager = counterModel)
             }
             composable(
                 route = "RecordListScreen"

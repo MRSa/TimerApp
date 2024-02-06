@@ -1,5 +1,6 @@
 package net.osdn.ja.gokigen.wearos.timerapp.presentation.ui
 
+import android.content.Context
 import android.text.format.DateFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,15 +34,16 @@ import androidx.wear.compose.material.scrollAway
 import kotlinx.coroutines.launch
 import net.osdn.ja.gokigen.wearos.timerapp.counter.CounterModel
 import net.osdn.ja.gokigen.wearos.timerapp.counter.CounterStatus
+import net.osdn.ja.gokigen.wearos.timerapp.presentation.MyPositionIndicatorState
 import java.util.Locale
 
 @Composable
-fun MainScreen(navController: NavHostController, counterManager: CounterModel)
+fun MainScreen(context: Context, navController: NavHostController, counterManager: CounterModel)
 {
     //val counterManager = remember { counterModel }
     val focusRequester = remember { FocusRequester() }
     val coroutineScope = rememberCoroutineScope()
-    val scrollState = rememberScrollState() // remember { MyPositionIndicatorState() }
+    val scrollState = remember { MyPositionIndicatorState() }
     val horizontalPadding = 5.dp
 
     Box(
@@ -60,11 +61,11 @@ fun MainScreen(navController: NavHostController, counterManager: CounterModel)
                             "HH:mm"
                         ),
                     ),
-                    modifier = Modifier.scrollAway(scrollState = scrollState)
+                    modifier = Modifier.scrollAway(scrollState = scrollState.scrollState)
                 )
             },
             positionIndicator = {
-                PositionIndicator(scrollState = scrollState)
+                PositionIndicator(scrollState = scrollState.scrollState)
             },
         ) {
             Column(
@@ -72,13 +73,13 @@ fun MainScreen(navController: NavHostController, counterManager: CounterModel)
                     .onRotaryScrollEvent {
                         coroutineScope.launch {
                             //Log.v("TEST", "Pixels: ${it.verticalScrollPixels}")
-                            scrollState.scrollBy(it.verticalScrollPixels)
-                            scrollState.animateScrollBy(0f)
+                            scrollState.scrollState.scrollBy(it.verticalScrollPixels)
+                            scrollState.scrollState.animateScrollBy(0f)
                         }
                         true
                     }
                     .fillMaxWidth()
-                    .verticalScroll(scrollState)
+                    .verticalScroll(scrollState.scrollState)
                     .padding(horizontal = horizontalPadding, vertical = 28.dp)  // 20.dp -> 26.dp
                     .focusRequester(focusRequester)
                     .focusable(),
@@ -111,9 +112,9 @@ fun MainScreen(navController: NavHostController, counterManager: CounterModel)
                 // 現在の状態によって、サブボタンの表示を切り替える
                 when (counterManager.buttonStatus.value)
                 {
-                    CounterStatus.START -> BtnSubStart(counterManager) // 実行中
-                    CounterStatus.STOP -> BtnSubStop(navController, counterManager) // 開始前
-                    CounterStatus.FINISHED -> BtnSubFinished(navController, counterManager)  // 終了
+                    CounterStatus.START -> BtnSubStart(context, counterManager) // 実行中
+                    CounterStatus.STOP -> BtnSubStop(context, navController, counterManager) // 開始前
+                    CounterStatus.FINISHED -> BtnSubFinished(context, navController, counterManager)  // 終了
                 }
             }
         }
