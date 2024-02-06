@@ -10,9 +10,9 @@ android {
     defaultConfig {
         applicationId = "net.osdn.ja.gokigen.wearos.timerapp"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 100000
-        versionName = "1.0.0"
+        targetSdk = 33
+        versionCode = 100001
+        versionName = "1.0.1"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -51,35 +51,34 @@ android {
 }
 
 dependencies {
-    implementation("com.google.android.gms:play-services-wearable:18.1.0")
-
     implementation("androidx.core:core-splashscreen:1.0.1")
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    implementation("androidx.activity:activity-compose:1.8.2")
+    //implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.activity:activity-compose:1.9.0-alpha02")
 
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    //implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.01.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material:material:1.5.4")
 
-    val navigationComposeVersion = "2.7.6"
+    //val navigationComposeVersion = "2.7.6"
+    val navigationComposeVersion = "2.8.0-alpha01"
     implementation("androidx.navigation:navigation-compose:$navigationComposeVersion")
     implementation("androidx.navigation:navigation-runtime-ktx:$navigationComposeVersion")
 
-    val wearComposeVersion = "1.2.1"
+    //val wearComposeVersion = "1.2.1"
+    val wearComposeVersion = "1.4.0-alpha01"
     implementation("androidx.wear.compose:compose-material:$wearComposeVersion")
     implementation("androidx.wear.compose:compose-foundation:$wearComposeVersion")
     implementation("androidx.wear.compose:compose-navigation:$wearComposeVersion")
 
     // for ongoing activity API
-    implementation("androidx.wear:wear-ongoing:1.0.0")
-    //implementation("androidx.core:core-ktx:2.2.0")
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.wear:wear-ongoing:1.1.0-alpha01")
+    //implementation("androidx.wear:wear-ongoing:1.0.0")
 
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    ////implementation("androidx.core:core-ktx:2.2.0")
+    //implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:1.13.0-alpha04")
+
 }

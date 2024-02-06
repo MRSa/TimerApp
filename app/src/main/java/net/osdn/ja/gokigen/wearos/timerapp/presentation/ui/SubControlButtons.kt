@@ -2,12 +2,12 @@ package net.osdn.ja.gokigen.wearos.timerapp.presentation.ui
 
 import android.util.Log
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
+import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.Icon
 import net.osdn.ja.gokigen.wearos.timerapp.R
 import net.osdn.ja.gokigen.wearos.timerapp.counter.ICounterStatus
 
@@ -25,7 +25,7 @@ fun BtnSubStop(navController: NavHostController, counterStatus: ICounterStatus)
     // ストップ状態時のボタン
     Row() {
         ////////////////////  記録一覧画面へ遷移  ////////////////////
-        IconButton(
+        Button(
             onClick = { navController.navigate("RecordListScreen") },
             enabled = true,
         ) {
@@ -37,7 +37,7 @@ fun BtnSubStop(navController: NavHostController, counterStatus: ICounterStatus)
         }
 
         ////////////////////  カウンターのスタート  ////////////////////
-        IconButton(
+        Button(
             onClick = { counterStatus.start() },
             enabled = true
         ) {
@@ -58,7 +58,7 @@ fun BtnSubStart(counterStatus: ICounterStatus)
     // スタート状態時のボタン
     Row() {
         ////////////////////  カウンターのストップ  ////////////////////
-        IconButton(
+        Button(
             onClick = { counterStatus.stop() },
             enabled = true
         ) {
@@ -70,7 +70,7 @@ fun BtnSubStart(counterStatus: ICounterStatus)
         }
 
         ////////////////////  タイムスタンプ記録  ////////////////////
-        IconButton(
+        Button(
             onClick = { counterStatus.timeStamp() },
             enabled = true
         ) {
@@ -91,7 +91,7 @@ fun BtnSubFinished(navController: NavHostController, counterStatus: ICounterStat
     // カウントストップ時のボタン
     Row() {
         ////////////////////  記録一覧画面へ遷移  ////////////////////
-        IconButton(
+        Button(
             onClick = { navController.navigate("RecordListScreen") },
             enabled = true,
         ) {
@@ -103,7 +103,7 @@ fun BtnSubFinished(navController: NavHostController, counterStatus: ICounterStat
         }
 
         ////////////////////  カウンターのリセット  ////////////////////
-        IconButton(
+        Button(
             onClick = { counterStatus.reset() },
             enabled = true
         ) {
@@ -115,7 +115,7 @@ fun BtnSubFinished(navController: NavHostController, counterStatus: ICounterStat
         }
 
         ////////////////////  カウンターのスタート  ////////////////////
-        IconButton(
+        Button(
             onClick = { counterStatus.start() },
             enabled = true
         ) {
