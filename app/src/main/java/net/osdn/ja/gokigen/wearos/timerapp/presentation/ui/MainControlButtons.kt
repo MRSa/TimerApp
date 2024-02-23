@@ -147,8 +147,8 @@ fun BtnStart(counterStatus: ICounterStatus)
                .background(color = Color.Black),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.primaryButtonColors(backgroundColor =  Color.Black),
-            onClick = { },
-            //onClick = { counterStatus.toggleShowCounter() },
+            // onClick = { },
+            onClick = { counterStatus.toggleShowCounter() },
             enabled = true
         ) {
             Icon(

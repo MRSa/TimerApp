@@ -10,8 +10,16 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 
 @Composable
-fun LapTimeList(navController: NavHostController) {
-
+fun LapTimeList(navController: NavHostController)
+{
+    Text(
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Center,
+        color = MaterialTheme.colors.primary,
+        text = " - - - - - - ",
+        fontSize = 12.sp,
+    )
+/*
     Text(
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
@@ -54,4 +62,5 @@ fun LapTimeList(navController: NavHostController) {
         text = "00:00:00.00",
         fontSize = 12.sp,
     )
+*/
 }
