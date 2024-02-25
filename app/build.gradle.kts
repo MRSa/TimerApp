@@ -48,43 +48,20 @@ android {
 }
 
 dependencies {
+    // Standard dependencies
     implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    //val composeBomVersion = "2023.08.00"
-    val composeBomVersion = "2024.02.00"
-    implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-
-    //val activityComposeVersion = "1.8.2"
-    val activityComposeVersion = "1.9.0-alpha03"
-    implementation("androidx.activity:activity-compose:$activityComposeVersion")
-
-    //val navigationComposeVersion = "2.7.7"
-    val navigationComposeVersion = "2.8.0-alpha02"
-    implementation("androidx.navigation:navigation-compose:$navigationComposeVersion")
-    implementation("androidx.navigation:navigation-runtime-ktx:$navigationComposeVersion")
-
-    //val wearComposeVersion = "1.2.1"             // 長押しが効く
-    //val wearComposeVersion = "1.3.0-alpha01"     // 起動しない alpha01 ～ alpha05
-    //val wearComposeVersion = "1.3.0-alpha06"     // 長押しが効かない
-    //val wearComposeVersion = "1.3.0"             // 長押しが効かない
-    //val wearComposeVersion = "1.4.0-alpha02"     // 長押しが効かない
-    val wearComposeVersion = "1.4.0-alpha03"     // 長押しが効かない
+    // Wear Compose
+    val wearComposeVersion = "1.4.0-alpha03"       // "1.2.1"
     implementation("androidx.wear.compose:compose-material:$wearComposeVersion")
     implementation("androidx.wear.compose:compose-foundation:$wearComposeVersion")
     implementation("androidx.wear.compose:compose-navigation:$wearComposeVersion")
 
     // for ongoing activity API
-    //val wearOnGoingVersion = "1.0.0"
-    val wearOnGoingVersion = "1.1.0-alpha01"
+    val wearOnGoingVersion = "1.1.0-alpha01"  // "1.0.0"
     implementation("androidx.wear:wear-ongoing:$wearOnGoingVersion")
 
-    //implementation("androidx.core:core-ktx:2.2.0")
-    //implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.core:core-ktx:1.13.0-alpha05")
-
     // Horologist
-    implementation("com.google.android.horologist:horologist-compose-material:0.6.0")
+    val wearHorologistVersion = "0.6.0"
+    implementation("com.google.android.horologist:horologist-compose-material:$wearHorologistVersion")
 }
